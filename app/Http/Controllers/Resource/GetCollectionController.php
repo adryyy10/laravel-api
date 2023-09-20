@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers\Resource;
 
 use App\Http\Controllers\Controller;
-use App\Interfaces\User\GetCollectionRepositoryInterface;
-use Illuminate\Database\Eloquent\Collection;
+use App\Interfaces\Resource\GetCollectionRepositoryInterface;
 
 class GetCollectionController extends Controller
 {
@@ -16,7 +15,7 @@ class GetCollectionController extends Controller
         $this->getCollectionRepository = $getCollectionRepository;
     }
 
-    public function getCollection(): Collection
+    public function getCollection(): array
     {
         return $this->getCollectionRepository->findAll();
     }
