@@ -28,4 +28,23 @@ class UserTest extends TestCase
         $response->assertStatus(404);
     }
 
+    public function testCreateUpdateDelete(): void
+    {
+        // Create
+        $response = $this->post("/users", [
+            'email'         => 'email123@gmail.com',
+            'first_name'    => 'Test first name',
+            'last_name'     => 'Test last name',
+            'avatar'        => 'Avatar.jpg',
+        ]);
+
+        $this->assertEquals(JsonResponse::HTTP_CREATED, $response['status']);
+
+        // Check is created
+        $createdId = $response['user']['id'];
+        $response = $this->get("/users/".$createdId);
+        $response->assertStatus(200);
+        $this->assertEquals('email123@gmail.com', $response['user']['email']);
+    }
+
 }
