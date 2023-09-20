@@ -45,6 +45,21 @@ class UserTest extends TestCase
         $response = $this->get("/users/".$createdId);
         $response->assertStatus(200);
         $this->assertEquals('email123@gmail.com', $response['user']['email']);
+
+        // Update
+        $response = $this->put("/users/".$createdId, [
+            'email'         => 'updatedEmail123@gmail.com',
+            'first_name'    => 'Updated Test first name',
+            'last_name'     => 'Updated Test last name',
+            'avatar'        => 'UpdatedAvatar.jpg',
+        ]);
+
+        $this->assertEquals(JsonResponse::HTTP_OK, $response['status']);
+
+        // Check is updated
+        $response = $this->get("/users/".$createdId);
+        $response->assertStatus(200);
+        $this->assertEquals('updatedEmail123@gmail.com', $response['user']['email']);
     }
 
 }
