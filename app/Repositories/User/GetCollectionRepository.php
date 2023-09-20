@@ -3,7 +3,7 @@
 namespace App\Repositories\User;
 
 use App\Interfaces\User\GetCollectionRepositoryInterface;
-use App\Models\User;
+use App\Models\ApiUser;
 use Illuminate\Database\Eloquent\Collection;
 
 class GetCollectionRepository implements GetCollectionRepositoryInterface
@@ -11,7 +11,7 @@ class GetCollectionRepository implements GetCollectionRepositoryInterface
 
     public function findAll(): Collection
     {
-        return User::all();
+        return ApiUser::all();
     }
 
 }

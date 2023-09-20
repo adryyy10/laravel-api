@@ -3,7 +3,7 @@
 namespace App\Repositories\User;
 
 use App\Interfaces\User\PostRepositoryInterface;
-use App\Models\User;
+use App\Models\ApiUser;
 use Illuminate\Http\JsonResponse;
 
 class PostRepository implements PostRepositoryInterface
@@ -15,7 +15,7 @@ class PostRepository implements PostRepositoryInterface
         $lastName   = request('last_name');
         $avatar     = request('avatar');
 
-        $user = User::create([
+        $user = ApiUser::create([
             'email'         => $email,
             'first_name'    => $firstName,
             'last_name'     => $lastName,

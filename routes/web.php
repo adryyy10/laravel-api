@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\User\GetCollectionController;
 use App\Http\Controllers\User\GetController;
 use App\Http\Controllers\Resource\GetCollectionController as ResourceGetCollectionController;
@@ -24,21 +25,33 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-/** Get data */
-Route::get('/users', [GetCollectionController::class, 'getCollection']);
-Route::get('/users/{id}', [GetController::class, 'get']);
-Route::get('/unknown', [ResourceGetCollectionController::class, 'getCollection']);
-Route::get('/unknown/{id}', [ResourceGetController::class, 'get']);
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
-/** Create data */
-Route::post('/users', [PostController::class, 'create']);
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    
+    /** Get data */
+    Route::get('/users', [GetCollectionController::class, 'getCollection']);
+    Route::get('/users/{id}', [GetController::class, 'get']);
+    Route::get('/unknown', [ResourceGetCollectionController::class, 'getCollection']);
+    Route::get('/unknown/{id}', [ResourceGetController::class, 'get']);
 
-/** Update data */
-Route::put('/users/{id}', [PutController::class, 'update']);
+    /** Create data */
+    Route::post('/users', [PostController::class, 'create']);
 
-/** Delete data */
-Route::delete('/users/{id}', [DeleteController::class, 'delete']);
+    /** Update data */
+    Route::put('/users/{id}', [PutController::class, 'update']);
 
-Route::get('/token', function () {
-    return csrf_token(); 
+    /** Delete data */
+    Route::delete('/users/{id}', [DeleteController::class, 'delete']);
+
+    Route::get('/token', function () {
+        return csrf_token(); 
+    });
 });
+
+require __DIR__.'/auth.php';

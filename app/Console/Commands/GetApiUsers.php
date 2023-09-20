@@ -41,10 +41,10 @@ class GetApiUsers extends Command
 
         foreach ($users as $user) {
             // If user is already in DB, skip loop
-            $existing = DB::select('select * from users where id = ?', [$user['id']]);
+            $existing = DB::select('select * from api_users where id = ?', [$user['id']]);
             if (!empty($existing)) continue;
 
-            DB::insert('insert into users (id, email, first_name, last_name, avatar) values (?, ?, ?, ?, ?)', [$user['id'], $user['email'], $user['first_name'], $user['last_name'], $user['avatar']]);
+            DB::insert('insert into api_users (id, email, first_name, last_name, avatar) values (?, ?, ?, ?, ?)', [$user['id'], $user['email'], $user['first_name'], $user['last_name'], $user['avatar']]);
         }
 
     }

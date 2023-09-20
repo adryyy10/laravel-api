@@ -3,7 +3,7 @@
 namespace App\Repositories\User;
 
 use App\Interfaces\User\PutRepositoryInterface;
-use App\Models\User;
+use App\Models\ApiUser;
 use Illuminate\Http\JsonResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -16,7 +16,7 @@ class PutRepository implements PutRepositoryInterface
         $lastName   = request('last_name');
         $avatar     = request('avatar');
 
-        $user = User::find($userId);
+        $user = ApiUser::find($userId);
 
         // Return if user not found
         if (empty($user)) {
