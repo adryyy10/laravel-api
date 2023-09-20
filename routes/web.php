@@ -33,7 +33,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    
+
     /** Get data */
     Route::get('/users', [GetCollectionController::class, 'getCollection']);
     Route::get('/users/{id}', [GetController::class, 'get']);
@@ -48,10 +48,10 @@ Route::middleware('auth')->group(function () {
 
     /** Delete data */
     Route::delete('/users/{id}', [DeleteController::class, 'delete']);
+}); 
 
     Route::get('/token', function () {
         return csrf_token(); 
     });
-});
 
 require __DIR__.'/auth.php';

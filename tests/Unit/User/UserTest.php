@@ -2,11 +2,23 @@
 
 namespace Tests\Unit\User;
 
+use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Tests\TestCase;
 
 class UserTest extends TestCase
 {
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $user = User::factory()->create();
+        
+        $this->post('/login', [
+            'email' => $user->email,
+            'password' => 'password',
+        ]);
+    }
 
     public function testGetCollection(): void
     {

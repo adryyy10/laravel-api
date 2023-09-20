@@ -2,10 +2,22 @@
 
 namespace Tests\Unit\Resource;
 
+use App\Models\User;
 use Tests\TestCase;
 
 class ResourceTest extends TestCase
 {
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $user = User::factory()->create();
+        
+        $this->post('/login', [
+            'email' => $user->email,
+            'password' => 'password',
+        ]);
+    }
 
     public function testGet(): void
     {
