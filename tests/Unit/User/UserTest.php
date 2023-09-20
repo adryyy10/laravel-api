@@ -60,6 +60,26 @@ class UserTest extends TestCase
         $response = $this->get("/users/".$createdId);
         $response->assertStatus(200);
         $this->assertEquals('updatedEmail123@gmail.com', $response['user']['email']);
+
+        // Delete
+        $response = $this->delete("/users/".$createdId);
+        $response->assertSuccessful();
+
+        // Check is deleted
+        $response = $this->get("/users/".$createdId);
+        $response->assertStatus(404);
+    }
+
+    public function testUpdateNotFound(): void
+    {
+        $response = $this->put("/users/124", [
+            'email'         => 'email123@gmail.com',
+            'first_name'    => 'Test first name',
+            'last_name'     => 'Test last name',
+            'avatar'        => 'Avatar.jpg',
+        ]);
+
+        $response->assertStatus(404);
     }
 
 }
